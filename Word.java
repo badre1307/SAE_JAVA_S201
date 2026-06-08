@@ -25,6 +25,7 @@ public class Word {
         return false;
     }
     
+    //Bonjour
 
     public int getTailleMot() {
         return tailleMot;
