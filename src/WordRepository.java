@@ -1,3 +1,5 @@
-public class WordRepository {
-    
-}
+
+public interface WordRepository {
+
+    public String getWord();
+} 

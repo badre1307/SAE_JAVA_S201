@@ -1,3 +1,4 @@
+
 public class Word {
     private static int tailleMot = 5;
     private String mot;
@@ -28,7 +29,7 @@ public class Word {
         return true;
     }
 
-    public int getTaille Mot() {
+    public int getTailleMot() {
         return tailleMot;
     }
 
