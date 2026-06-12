@@ -1,5 +1,4 @@
-
 public interface WordRepository {
 
-    public String getWord();
+    public Word getWord();
 } 
