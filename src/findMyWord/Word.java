@@ -30,7 +30,7 @@ public class Word {
         return this.raisonInvalide() == null;
     }
 
-    private String raisonInvalide() {
+    public String raisonInvalide() {
         if (this.mot == null) {
             return "Erreur : le mot ne peut pas être null.";
         }
