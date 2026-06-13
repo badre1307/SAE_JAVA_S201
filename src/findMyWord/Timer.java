@@ -1,3 +1,5 @@
+package findMyWord;
+
 public class Timer {
 
     private long debut;

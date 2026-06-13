@@ -1,3 +1,6 @@
+package findMyWord;
+
+
 
 public class FixedWordRepository extends WordRepository {
     private final String motS;

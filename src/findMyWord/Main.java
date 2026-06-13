@@ -1,4 +1,4 @@
-import words.*;
+package findMyWord;
 import java.io.IOException;
 
 public class Main {

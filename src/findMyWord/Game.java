@@ -1,5 +1,7 @@
+package findMyWord;
 import java.io.IOException;
 import java.util.Scanner;
+
 
 public class Game {
     private boolean enCours = true;
@@ -58,8 +60,7 @@ public class Game {
         while(mancheActuelle != nombreManches+1) {
             this.motSecret = w.getWord();
 
-            // À enlever pour le rendu final
-            System.out.println(motSecret.getMot());
+
             enCours = true;
 
             System.out.println("Manche " + mancheActuelle + "/" + nombreManches);
@@ -210,5 +211,44 @@ public class Game {
 
 
         scan.close();
+    }
+        public String getNomJoueur() {
+        return this.nomJoueur;
+    }
+
+    public int getNombreEssai() {
+        return this.nombreEssai;
+    }
+
+    public int getPoints() {
+        return this.points;
+    }
+
+    public int getTotalPoints() {
+        return this.totalPoints;
+    }
+
+    public int getNombreManches() {
+        return this.nombreManches;
+    }
+
+    public int getMancheActuelle() {
+        return this.mancheActuelle;
+    }
+
+    public long getTempsSec() {
+        return this.tempsSec;
+    }
+
+    public boolean isEnCours() {
+        return this.enCours;
+    }
+
+    public static int getNombreEssaiMax() {
+        return nombreEssaiMax;
+    }
+
+    public String[] getHistoriquePartie() {
+        return this.historiquePartie;
     }
 }
