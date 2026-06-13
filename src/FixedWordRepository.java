@@ -1,5 +1,5 @@
 
-public class FixedWordRepository implements WordRepository {
+public class FixedWordRepository extends WordRepository {
     private final String motS;
     private final Word mot;
     @Override

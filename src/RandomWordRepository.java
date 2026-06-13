@@ -4,7 +4,7 @@ import words.WordSet;
 import java.io.IOException;
 
 import words.JsonWordSet;
-public class RandomWordRepository implements WordRepository {
+public class RandomWordRepository extends WordRepository {
     private WordSet liste_mot;
     @Override
     public Word getWord() {

@@ -1,4 +1,4 @@
-public interface WordRepository {
+public abstract class WordRepository {
 
-    public Word getWord();
+    public abstract Word getWord();
 } 

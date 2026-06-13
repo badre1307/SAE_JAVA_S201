@@ -63,6 +63,13 @@ public class Word {
     }  
     @Override
     public String toString() {
-        return this.mot;
+        String lparl = "";
+        for (int i = 0; i < Word.tailleMot; i++) {
+            lparl += "[ " + this.mot.charAt(i) + " ] ";
+        }
+        return lparl;
+    }
+    public static int getMaxLength() {
+        return Word.tailleMot;
     }
 }
