@@ -59,10 +59,11 @@ public class Game {
 
         
 
-        String[] historique = new String[nombreEssaiMax];
+        
 
         Timer timer = new Timer();
         while(mancheActuelle != nombreManches+1) {
+            String[] historique = new String[nombreEssaiMax];
             this.motSecret = w.getWord();
 
 
@@ -105,7 +106,7 @@ public class Game {
                 String ligneHistorique = "";
 
                 for (int i = 0; i < Word.getMaxLength(); i++) {
-                    ligneHistorique += "[ " + dernierMotSaisi.getMot().charAt(i) + " ]";
+                    ligneHistorique += "[ " + Character.toUpperCase(dernierMotSaisi.getMot().charAt(i)) + " ]";
                 }
 
                 ligneHistorique += " -> ";
@@ -126,56 +127,69 @@ public class Game {
                 System.out.println("----------------------------------------");
                 System.out.println();
 
-                if (dernierMotSaisi.getMot().equals(motSecret.getMot())) {
-                    timer.stop();
-                    this.tempsSec = timer.recupererTemps();
-                    this.points = nombreEssaiMax - nombreEssai + 1;
-                    this.totalPoints += this.points;
-                    
+               if (dernierMotSaisi.getMot().equals(motSecret.getMot())) {
+                timer.stop();
+                this.tempsSec = timer.recupererTemps();
+                this.points = nombreEssaiMax - nombreEssai + 1;
+                this.totalPoints += this.points;
 
-                    System.out.println("Bravo " + nomJoueur + " !");
-                    System.out.println("Vous avez trouvé le mot en " + nombreEssai + " essai(s).");
-                    System.out.println("Vous avez obtenu : " + this.points + " point(s) à cette manche.");
-                    System.out.println("Total des points : " + this.totalPoints + " point(s).");
-                    if (tempsSec >= 60) {
-                        long minutes = tempsSec / 60;
-                        long secondes = tempsSec % 60;
-                        System.out.println("Temps pour cette manche : " 
-                            + minutes + " minutes " 
-                            + secondes + " secondes");
-                    } else {
-                        System.out.println("Temps pour cette manche : " 
-                            + tempsSec + " secondes");
-                    }
-                    System.out.println();
+                historiquePartie[mancheActuelle - 1] =
+                    "Joueur : " + nomJoueur
+                    + " | Mot : " + motSecret.getMot()
+                    + " | Manche : " + mancheActuelle
+                    + " | Résultat : victoire"
+                    + " | Essais : " + nombreEssai
+                    + " | Points : " + points
+                    + " | Temps : " + tempsSec + " secondes";
 
-                    this.enCours = false;
-                } else if (nombreEssai == nombreEssaiMax) {
-                    timer.stop();
-                    this.tempsSec = timer.recupererTemps();
-                    this.points = 0;
+                System.out.println("Bravo " + nomJoueur + " !");
+                System.out.println("Vous avez trouvé le mot en " + nombreEssai + " essai(s).");
+                System.out.println("Vous avez obtenu : " + this.points + " point(s) à cette manche.");
+                System.out.println("Total des points : " + this.totalPoints + " point(s).");
 
-                    System.out.println("Vous avez utilisé tous vos essais.");
-                    System.out.println("Partie perdue.");
-                    System.out.println("Points obtenu : " + this.points);
-                    System.out.println("Total des points : " + this.totalPoints + " point(s).");
-                    if (tempsSec >= 60) {
-                        long minutes = tempsSec / 60;
-                        long secondes = tempsSec % 60;
-                        System.out.println("Temps pour cette manche : " 
-                            + minutes + " minutes " 
-                            + secondes + " secondes");
-                    } else {
-                        System.out.println("Temps pour cette manche : " 
-                            + tempsSec + " secondes");
-                    }
-                    System.out.println("Mot secret : " + motSecret.getMot());
-                    System.out.println();
-
-                    this.enCours = false;
+                if (tempsSec >= 60) {
+                    long minutes = tempsSec / 60;
+                    long secondes = tempsSec % 60;
+                    System.out.println("Temps pour cette manche : " + minutes + " minutes " + secondes + " secondes");
+                } else {
+                    System.out.println("Temps pour cette manche : " + tempsSec + " secondes");
                 }
 
-                historiquePartie[mancheActuelle-1] = "Joueur : " + nomJoueur + " | Mot : " + motSecret.getMot() + " | Manche : " + mancheActuelle + " | Résultat : victoire | Essais : " + nombreEssai + " | Points : " + points + " | Temps : " + tempsSec + " secondes" ;
+                System.out.println();
+                this.enCours = false;
+            } else if (nombreEssai == nombreEssaiMax) {
+                timer.stop();
+                this.tempsSec = timer.recupererTemps();
+                this.points = 0;
+
+                historiquePartie[mancheActuelle - 1] =
+                    "Joueur : " + nomJoueur
+                    + " | Mot : " + motSecret.getMot()
+                    + " | Manche : " + mancheActuelle
+                    + " | Résultat : défaite"
+                    + " | Essais : " + nombreEssai
+                    + " | Points : " + points
+                    + " | Temps : " + tempsSec + " secondes";
+
+                System.out.println("Vous avez utilisé tous vos essais.");
+                System.out.println("Partie perdue.");
+                System.out.println("Points obtenu : " + this.points);
+                System.out.println("Total des points : " + this.totalPoints + " point(s).");
+
+                if (tempsSec >= 60) {
+                    long minutes = tempsSec / 60;
+                    long secondes = tempsSec % 60;
+                    System.out.println("Temps pour cette manche : " + minutes + " minutes " + secondes + " secondes");
+                } else {
+                    System.out.println("Temps pour cette manche : " + tempsSec + " secondes");
+                }
+
+                System.out.println("Mot secret : " + motSecret.getMot());
+                System.out.println();
+
+                this.enCours = false;
+            }
+               
             }
 
 
@@ -188,7 +202,7 @@ public class Game {
 
         boolean attente = true;
         while(attente) {
-            System.out.print("Voulez vous voir un historique des manches? oui - non : git");
+            System.out.print("Voulez vous voir un historique des manches? oui - non : ");
             String reponse = scan.nextLine();
             if(reponse.equalsIgnoreCase("oui")) {
                 System.out.println("");
@@ -252,7 +266,7 @@ public class Game {
         return nombreEssaiMax;
     }
 
-    public String[] getHistoriquePartie() {
-        return this.historiquePartie;
-    }
+   public String[] getHistoriquePartie() {
+    return this.historiquePartie.clone();
+}
 }
