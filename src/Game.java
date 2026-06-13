@@ -10,10 +10,10 @@ public class Game {
     private static final int nombreEssaiMax = 6;
     private int points;
     private int totalPoints;
-    private boolean mancheValide = false;
     private int mancheActuelle = 1;
     private int nombreManches;
     private long tempsSec;
+    private String[] historiquePartie;
 
     public Game(WordRepository w) throws IOException {
         
@@ -32,9 +32,9 @@ public class Game {
         System.out.println("Bonjour " + nomJoueur + " !");
         System.out.println();
 
+        boolean mancheValide = false;
         while (!mancheValide) {
-            System.out.println("Combien de manches voulez-vous jouer? 1, 5, 10 ou 20");
-            System.out.println("");
+            System.out.print("Combien de manches voulez-vous jouer? 1, 5, 10 ou 20 : ");
             this.nombreManches = Integer.parseInt(scan.nextLine());
             if (nombreManches == 1 || nombreManches == 5 || nombreManches == 10 || nombreManches == 20) {
                 mancheValide = true;
@@ -44,6 +44,8 @@ public class Game {
                 System.out.println("");
             }
         }
+
+        this.historiquePartie = new String[nombreManches];
 
         System.out.println("");
         
@@ -167,11 +169,46 @@ public class Game {
 
                     this.enCours = false;
                 }
+
+                historiquePartie[mancheActuelle-1] = "Joueur : " + nomJoueur + " | Mot : " + motSecret.getMot() + " | Manche : " + mancheActuelle + " | Résultat : victoire | Essais : " + nombreEssai + " | Points : " + points + " | Temps : " + tempsSec + " secondes" ;
             }
+
+
 
             mancheActuelle++;
             
         }
+
+        
+
+        boolean attente = true;
+        while(attente) {
+            System.out.print("Voulez vous voir un historique des manches? oui - non : git");
+            String reponse = scan.nextLine();
+            if(reponse.equalsIgnoreCase("oui")) {
+                System.out.println("");
+                System.out.println("Voici l'historique de vos manches : ");
+                System.out.println("");
+                for(int i = 0; i<nombreManches; i++) {
+                    System.out.println(historiquePartie[i]);
+                }
+                attente = false;
+            }
+
+            else if (reponse.equalsIgnoreCase("non")) {
+                attente = false;
+            }
+
+            else {
+                System.out.println("");
+                System.out.println("Réponse invalide.");
+                System.out.println("");
+            }
+        }
+        
+
+
+
         scan.close();
     }
 }
