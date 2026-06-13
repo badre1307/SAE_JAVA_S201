@@ -10,7 +10,6 @@ public class Game {
     private static final int nombreEssaiMax = 6;
     private int points;
     private int totalPoints;
-    private boolean mancheValide = false;
     private int mancheActuelle = 1;
     private int nombreManches;
     private long tempsSec;
@@ -33,6 +32,7 @@ public class Game {
         System.out.println("Bonjour " + nomJoueur + " !");
         System.out.println();
 
+        boolean mancheValide = false;
         while (!mancheValide) {
             System.out.print("Combien de manches voulez-vous jouer? 1, 5, 10 ou 20 : ");
             this.nombreManches = Integer.parseInt(scan.nextLine());
