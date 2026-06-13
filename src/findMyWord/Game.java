@@ -37,7 +37,12 @@ public class Game {
         boolean mancheValide = false;
         while (!mancheValide) {
             System.out.print("Combien de manches voulez-vous jouer? 1, 5, 10 ou 20 : ");
-            this.nombreManches = Integer.parseInt(scan.nextLine());
+            try {
+                this.nombreManches = Integer.parseInt(scan.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Entrée invalide.");
+                continue;
+            }
             if (nombreManches == 1 || nombreManches == 5 || nombreManches == 10 || nombreManches == 20) {
                 mancheValide = true;
             }
@@ -78,8 +83,7 @@ public class Game {
                 try {
                     dernierMotSaisi = new Word(motSaisi);
                 } catch (IllegalArgumentException e) {
-                    System.out.println("Mot invalide.");
-                    System.out.println("Rappel : le mot doit contenir 5 lettres et aucune lettre répétée.");
+                    System.out.println(e.getMessage());
                     System.out.println();
                     continue;
                 }

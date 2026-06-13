@@ -9,10 +9,16 @@ public class Word {
     }
 
     public Word(String m) {
-        this.mot = m.toLowerCase();
+        if (m == null) {
+            this.mot = null;
+        } else {
+            this.mot = m.toLowerCase();
+        }
 
-        if (!this.isValide()) {
-            throw new IllegalArgumentException("mot invalide : " + m);
+        String erreur = this.raisonInvalide();
+
+        if (erreur != null) {
+            throw new IllegalArgumentException(erreur);
         }
     }
 
@@ -21,28 +27,31 @@ public class Word {
     }
 
     public boolean isValide() {
-        if (this.mot == null || this.mot.length() != tailleMot || !this.mot.matches("[a-zA-Z]+")) {
-            return false;
+        return this.raisonInvalide() == null;
+    }
+
+    private String raisonInvalide() {
+        if (this.mot == null) {
+            return "Erreur : le mot ne peut pas être null.";
         }
 
-        char[] tab = new char[tailleMot];
+        if (this.mot.length() != tailleMot) {
+            return "Erreur : le mot doit contenir exactement 5 lettres.";
+        }
 
-        for (int i = 0; i < tailleMot; i++) {
-            tab[i] = this.mot.charAt(i);
-            int count = 0;
+        if (!this.mot.matches("[a-zA-Z]+")) {
+            return "Erreur : le mot doit contenir uniquement des lettres.";
+        }
 
-            for (int n = 0; n < tab.length; n++) {
-                if (tab[n] == this.mot.charAt(i)) {
-                    count++;
-
-                    if (count >= 2) {
-                        return false;
-                    }
+        for (int i = 0; i < this.mot.length(); i++) {
+            for (int j = i + 1; j < this.mot.length(); j++) {
+                if (this.mot.charAt(i) == this.mot.charAt(j)) {
+                    return "Erreur : le mot ne doit pas contenir de lettre répétée.";
                 }
             }
         }
 
-        return true;
+        return null;
     }
 
     public static int getTailleMot() {
@@ -61,14 +70,16 @@ public class Word {
         String init = this.mot;
 
         if (s == null) {
-            throw new IllegalArgumentException("Mot null");
+            this.mot = null;
+        } else {
+            this.mot = s.toLowerCase();
         }
 
-        this.mot = s.toLowerCase();
+        String erreur = this.raisonInvalide();
 
-        if (!this.isValide()) {
+        if (erreur != null) {
             this.mot = init;
-            throw new IllegalArgumentException("mot invalide : " + s);
+            throw new IllegalArgumentException(erreur);
         }
     }
 
